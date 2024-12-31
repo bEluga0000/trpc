@@ -20,7 +20,9 @@ const appRouter = router({
         const id = opts.input.id
         // db operation
         return {id:"1",title:"good",description:"Nicely done"}
-    })
+    }),
+    // signUp:publicProcedure
+    // .input()
 });
 
 export type AppRouter = typeof appRouter;
