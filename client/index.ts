@@ -4,6 +4,9 @@ import type { AppRouter } from '../server';
 const trpc = createTRPCClient<AppRouter>({
     links: [
         httpBatchLink({
+            async headers(){
+                return {Authorization:"Bearer 1"}
+            },
             url: 'http://localhost:3000',
         }),
     ],

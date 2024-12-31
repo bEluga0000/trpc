@@ -16,6 +16,10 @@ const createTodoInputSchema = zod_1.z.object({
     title: zod_1.z.string(),
     description: zod_1.z.string()
 });
+const signUpSchema = zod_1.z.object({
+    email: zod_1.z.string().email(),
+    password: zod_1.z.string()
+});
 const appRouter = (0, trpc_1.router)({
     createTodo: trpc_1.publicProcedure
         .input(createTodoInputSchema)
@@ -30,10 +34,22 @@ const appRouter = (0, trpc_1.router)({
         .query((opts) => __awaiter(void 0, void 0, void 0, function* () {
         const id = opts.input.id;
         // db operation
+        console.log(opts.ctx.userId);
         return { id: "1", title: "good", description: "Nicely done" };
+    })),
+    signUp: trpc_1.publicProcedure
+        .input(signUpSchema)
+        .mutation((opts) => __awaiter(void 0, void 0, void 0, function* () {
+        // db stuff and generate token
+        return { token: "exxxxhghghththdhdksjgkjkt" };
     }))
 });
 const server = (0, standalone_1.createHTTPServer)({
     router: appRouter,
+    createContext(opts) {
+        let authHeader = opts.req.headers["Authorization"];
+        console.log(authHeader);
+        return { userId: "123" };
+    }
 });
 server.listen(3000);

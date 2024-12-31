@@ -13,6 +13,11 @@ const client_1 = require("@trpc/client");
 const trpc = (0, client_1.createTRPCClient)({
     links: [
         (0, client_1.httpBatchLink)({
+            headers() {
+                return __awaiter(this, void 0, void 0, function* () {
+                    return { "Authorization": "Bearer 1" };
+                });
+            },
             url: 'http://localhost:3000',
         }),
     ],
